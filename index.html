@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>道どこ地図</title>
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0"/>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -28,12 +28,12 @@ var oct = L.tileLayer(
   });
 
 var map = L.map('mapdiv', {
-  center: [35.722, 139.699], zoom: 8,
+  center: [35.722, 139.699], zoom: 8, minZoom: 8,
   layers: [std, oct]});
 
 var hash = L.hash(map);
 L.control.layers({'地理院': std},
-  {'octpng': oct}).addTo(map);
+  {'道どこ地図': oct}).addTo(map);
 </script>
 </body>
 </html>
