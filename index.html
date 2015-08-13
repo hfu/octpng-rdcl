@@ -27,13 +27,22 @@ var oct = L.tileLayer(
     minZoom: 8, maxNativeZoom: 8, maxZoom: 18, errorTileUrl: '404.png'
   });
 
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'http://cyberjapandata.gsi.go.jp/xyz/experimental_rdcl/style.js', false);
+xhr.send(null);
+var stylejs = eval( "(" + xhr.responseText + ")" );
+
+var rdcl = new L.TileLayer.GeoJSON(
+  'http://cyberjapandata.gsi.go.jp/xyz/experimental_rdcl/{z}/{x}/{y}.geojson',
+  stylejs.options,stylejs.geojsonOptions);
+
 var map = L.map('mapdiv', {
   center: [35.722, 139.699], zoom: 8, minZoom: 8,
-  layers: [std, oct]});
+  layers: [std, oct, rdcl]});
 
 var hash = L.hash(map);
-L.control.layers({'地理院': std},
-  {'道どこ地図': oct}).addTo(map);
+L.control.layers({},
+  {'地理院標準地図': std, '道どこ地図': oct, '道路中心線': rdcl}).addTo(map);
 </script>
 </body>
 </html>
